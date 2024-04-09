@@ -21,8 +21,13 @@ body {
     outline: none;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 .btnFill {
     background: rgb(6, 128, 169);
     color: white;
+}
+
+button:disabled {
+    background: rgb(111, 190, 255);
 }

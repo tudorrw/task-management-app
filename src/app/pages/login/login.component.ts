@@ -9,14 +9,16 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit{
   hide: boolean = true;
-  loginForm: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-  });
-  
+  loginForm!: FormGroup;
 
   constructor(private authService : AuthService) {}
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+   this.loginForm = new FormGroup({
+      username: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required),
+    });
+  }
 
   loginWithGoogle() {
     this.authService.signInWithGoogle().then((res: any) => {
@@ -24,5 +26,14 @@ export class LoginComponent implements OnInit{
     }).catch((error: any) => {
       console.log(error);
    });
+  }
+
+  loginWithEmailAndPassword() {
+    console.log(this.loginForm.value);
+    this.authService.login(this.loginForm.value.username, this.loginForm.value.password).then((res: any) => {
+      console.log(res);
+    }).catch((error: any) => {
+    });
+
   }
 }
