@@ -13,12 +13,19 @@ import {MatDividerModule} from '@angular/material/divider';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { GoogleLoginCardComponent } from './google-login-card/google-login-card.component';
+import { AngularFireModule } from '@angular/fire/compat'
+import { AngularFireAuthModule } from '@angular/fire/compat/auth'
+import { environment } from '../environments/environment.development';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    GoogleLoginCardComponent
+    GoogleLoginCardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +36,9 @@ import { GoogleLoginCardComponent } from './google-login-card/google-login-card.
     MatIconModule,
     MatDividerModule,
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [
     provideClientHydration(),

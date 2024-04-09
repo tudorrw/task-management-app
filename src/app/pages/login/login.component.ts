@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,15 @@ export class LoginComponent implements OnInit{
     password: new FormControl('', Validators.required),
   });
   
-  constructor() {}
-    ngOnInit(): void {
-    }
+
+  constructor(private authService : AuthService) {}
+  ngOnInit(): void {}
+
+  loginWithGoogle() {
+    this.authService.signInWithGoogle().then((res: any) => {
+      console.log(res);
+    }).catch((error: any) => {
+      console.log(error);
+   });
+  }
 }

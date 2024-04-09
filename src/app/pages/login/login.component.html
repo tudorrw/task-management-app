@@ -34,11 +34,11 @@
         <p class="forgot-label">Forgot Password</p>
         
         <p class="alternative">Don't have an account? <span [routerLink]="['/register']" >SignUp</span> </p>
-        
+        <button class="btn btnFill">Login</button>
         <div class="or-line-divider">
             <p>Or</p>
         </div>
-        <div class="google-card">
+        <div (click)="loginWithGoogle()" class="google-card">
             <app-google-login-card></app-google-login-card>
         </div>
     </div>
