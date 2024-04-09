@@ -19,7 +19,10 @@ import { environment } from '../environments/environment.development';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creator-popup.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     GoogleLoginCardComponent,
     DashboardComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    TaskCreatorPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,10 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ],
   providers: [
     provideClientHydration(),

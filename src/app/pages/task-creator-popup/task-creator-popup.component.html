@@ -1,0 +1,47 @@
+<div class="task-popup-container">
+  <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
+    <h2 class="popup-title">Create a New Task</h2>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Title">
+      <mat-error *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">Title is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" placeholder="Description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority" placeholder="Select Priority">
+        <mat-option value="low">Low</mat-option>
+        <mat-option value="medium">Medium</mat-option>
+        <mat-option value="high">High</mat-option>
+        <mat-option value="high">Critical</mat-option>
+      </mat-select>
+      <mat-error *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched">Priority is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category" placeholder="Select Category">
+        <mat-option value="work">Work</mat-option>
+        <mat-option value="personal">Personal</mat-option>
+        <mat-option value="study">Study</mat-option>
+        <mat-option value="home">Home</mat-option>
+        <!-- Add more categories as needed -->
+      </mat-select>
+      <mat-error *ngIf="taskForm.get('category')?.invalid && taskForm.get('category')?.touched">Category is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Due Date</mat-label>
+      <input matInput formControlName="dueDate" type="date" placeholder="Due Date">
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">Save</button>
+      <button mat-button type="button" (click)="closeDialog()">Cancel</button>
+    </div>
+  </form>
+</div>
