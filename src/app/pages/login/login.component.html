@@ -31,9 +31,9 @@
 
         </mat-form-field>  
 
-        <p class="forgot-label">Forgot Password</p>
+        <span class="forgot-label" [routerLink]="['/forgot-password']">Forgot Password</span>
         
-        <p class="alternative">Don't have an account? <span [routerLink]="['/register']" >SignUp</span> </p>
+        <p class="alternative">Don't have an account? <span [routerLink]="['/register']" >Sign up</span> </p>
         <button (click)="loginWithEmailAndPassword()" [disabled]="loginForm.invalid" class="btn btnFill">Login</button>
         <div class="or-line-divider">
             <p>Or</p>
