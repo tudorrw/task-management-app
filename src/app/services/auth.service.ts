@@ -14,16 +14,20 @@ export class AuthService {
     return this.afs.signInWithPopup(new GoogleAuthProvider).then(res => 
       {
         this.router.navigate(['/dashboard']);
-        // localStorage.setItem('token', JSON.stringify(res.user));
+        localStorage.setItem('token', JSON.stringify(res.user?.uid));
       }, err => {
         alert('Something went wrong: ');
       })
   }
 
   login(username: string, password: string) {
-    return this.afs.signInWithEmailAndPassword(username, password).then(() => {
+    return this.afs.signInWithEmailAndPassword(username, password).then( res => {
       localStorage.setItem('token', 'true');
-      this.router.navigate(['/dashboard']);
+      if(res.user?.emailVerified == true) {
+        this.router.navigate(['dashboard']);
+      } else {
+        this.router.navigate(['/varify-email']);
+      }
     }, err => {
       alert('Something went wrong: ');
       this.router.navigate(['/login']);
@@ -31,9 +35,12 @@ export class AuthService {
   }
 
   register(username : string, password : string) {
-    return this.afs.createUserWithEmailAndPassword(username, password).then(() => {
+    return this.afs.createUserWithEmailAndPassword(username, password).then( res => {
       alert('Registration Successful');
-      this.router.navigate(['/login']);
+      this.sendEmailForVerification(res.user);
+
+      // this.router.navigate(['/login']);
+      
     }, err => {
       alert(err.message);
       this.router.navigate(['/register']);
@@ -48,4 +55,21 @@ export class AuthService {
       alert(err.message);
     })
   }
+
+  forgotPassword(username: string) {
+    this.afs.sendPasswordResetEmail(username).then(() => {
+      this.router.navigate(['/verify-email']);
+    }, err => {
+      alert("Something went wrong");
+    });
+  }
+
+  sendEmailForVerification(user : any) {
+    user.sendEmailVerification().then((res : any) => {
+      this.router.navigate(['/verify-email']);
+    }, (err : any) => {
+      alert("Something went wrong. Not able to send verification email.");
+    });
+  }
+
 }

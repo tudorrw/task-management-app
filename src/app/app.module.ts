@@ -17,6 +17,8 @@ import { AngularFireModule } from '@angular/fire/compat'
 import { AngularFireAuthModule } from '@angular/fire/compat/auth'
 import { environment } from '../environments/environment.development';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     LoginComponent,
     RegisterComponent,
     GoogleLoginCardComponent,
-    DashboardComponent
+    DashboardComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
