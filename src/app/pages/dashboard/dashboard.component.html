@@ -21,6 +21,10 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Verified</a>
         </li>
+        <li class="nav-item">
+          <a (click)="logoutUser()" class="nav-link" href="#">Logout</a>
+        </li>
+        
       </ul>
     </nav>
     <div class="content">
@@ -62,5 +66,5 @@
         <li *ngFor="let task of tasks.verified">{{ task }}</li>
       </ul>
     </div>
-    <!--button mat-button (click)="openTaskCreator()">Open Task Creator</button-->
+    <button mat-button (click)="openTaskCreator()">Open Task Creator</button>
 </div>

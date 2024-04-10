@@ -25,8 +25,12 @@ export class DashboardComponent{
   }
   constructor(
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {}
+
+  logoutUser() {
+    this.authService.logout();
+  }
 
   openTaskCreator(): void {
     const dialogRef = this.dialog.open(TaskCreatorPopupComponent, {

@@ -7,8 +7,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AngularFireModule } from '@angular/fire/compat'
 import { AngularFireAuthModule } from '@angular/fire/compat/auth'
 import { environment } from '../environments/environment.development';
-
-
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -54,7 +52,7 @@ import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creat
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
     provideClientHydration(),

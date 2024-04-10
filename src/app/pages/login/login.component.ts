@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Add this import
+import { Router } from '@angular/router';
+import { PlatformLocation } from '@angular/common';
 
 
 @Component({
@@ -17,18 +18,33 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
-
-  ) {}
+    private platFormLocation: PlatformLocation,
+    private router: Router
+  ) {
+      history.pushState(null, '', window.location.href);
+      this.platFormLocation.onPopState(() => {
+        history.pushState(null, '', window.location.href);
+      });
+  
+  }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
+    if(this.authService.isLoggedIn()) {
+      if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('token');
+        if (token) {
+          this.router.navigate(['/dashboard']);
+        }
+      }
+    }
   }
 
   loginWithGoogle() {
+  
     this.authService.signInWithGoogle().then((res: any) => {
     }).catch((error: any) => {
     });
@@ -43,5 +59,4 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  
 }

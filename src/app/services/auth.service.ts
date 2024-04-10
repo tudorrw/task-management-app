@@ -15,12 +15,20 @@ export class AuthService {
     private router: Router, 
     private snackBar: MatSnackBar
     ) {}
+    isLoggedIn(): boolean {
+      if (typeof window !== 'undefined'){
+        return !!localStorage.getItem('token');
+      }
+      return false;
+    }
 
   signInWithGoogle() {
     return this.afs.signInWithPopup(new GoogleAuthProvider).then(res => 
       {
         this.router.navigate(['/dashboard']);
         this.openSnackBar('Logged in with Google!');
+        console.log(res);
+
         localStorage.setItem('token', JSON.stringify(res.user?.uid));
 
       }, err => {
