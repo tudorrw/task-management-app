@@ -3,12 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent{
+export class DashboardComponent implements OnInit{
   hide: boolean = true;
   loginForm!: FormGroup;
   tasks = {
@@ -26,7 +27,19 @@ export class DashboardComponent{
   constructor(
     private authService: AuthService,
     public dialog: MatDialog,
-  ) {}
+    private router: Router
+  ) {
+    
+  }
+
+  ngOnInit(): void {
+    console.log(this.authService.isLoggedIn());
+    if(this.authService.isLoggedIn() == false) {
+        this.router.navigate(['/login']);
+      }
+  
+  }
+
 
   logoutUser() {
     this.authService.logout();

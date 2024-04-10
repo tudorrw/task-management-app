@@ -5,12 +5,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
-import { preventBackButtonGuard } from './prevent-back-button.guard';
 
 const routes: Routes = [
   {path: '',redirectTo: 'login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, canDeactivate: [preventBackButtonGuard]},
-  {path: 'dashboard', component:DashboardComponent, canDeactivate: [preventBackButtonGuard]},
+  {path: 'login', component: LoginComponent},
+  {path: 'dashboard', component:DashboardComponent},
   {path:'register',component: RegisterComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'verify-email', component: VerifyEmailComponent}

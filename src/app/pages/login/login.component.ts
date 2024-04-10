@@ -3,8 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { PlatformLocation } from '@angular/common';
-
 
 @Component({
   selector: 'app-login',
@@ -18,15 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     public dialog: MatDialog,
-    private platFormLocation: PlatformLocation,
     private router: Router
-  ) {
-      history.pushState(null, '', window.location.href);
-      this.platFormLocation.onPopState(() => {
-        history.pushState(null, '', window.location.href);
-      });
-  
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
