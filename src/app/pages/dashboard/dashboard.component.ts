@@ -11,7 +11,18 @@ import { AuthService } from '../../services/auth.service';
 export class DashboardComponent{
   hide: boolean = true;
   loginForm!: FormGroup;
+  tasks = {
+    todo: ['Task 1', 'Task 2', 'Task 3'],
+    planned: ['Task 4'],
+    inProgress: [],
+    finished: [],
+    verified: []
+  };
+  navbarCollapsed = false;
 
+  toggleNavbar() {
+    this.navbarCollapsed = !this.navbarCollapsed;
+  }
   constructor(
     private authService: AuthService,
     public dialog: MatDialog
@@ -28,3 +39,4 @@ export class DashboardComponent{
     });
   }
 }
+

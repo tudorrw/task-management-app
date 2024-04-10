@@ -1,10 +1,66 @@
-<div class="dashboard-container">
-    <div class="construction-container">
-        <div class="construction-content">
-            <p class="title">Under Construction</p>
-            <p class="title-intro">This page is under construction</p>
-            <p class="title-intro">Please check back later</p>
+<div class="wrapper">
+    <nav class="navbar" [ngClass]="{ 'collapsed': navbarCollapsed }">
+      <div class="toggle-button" (click)="toggleNavbar()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">To-Do</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Planned</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">In Progress</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Finished</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Verified</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="content">
+      <div class="header">
+        <h1>Task Management</h1>
+        <div class="buttons">
+          <button class="btn">Add Task</button>
+          <button class="btn">Export</button>
         </div>
+      </div>
+      <div class="container">
+    <div class="column" id="todo">
+      <h2 id="to-do-header">To-Do</h2>
+      <ul class="tasks" id="todo-tasks">
+        <li *ngFor="let task of tasks.todo">{{ task }}</li>
+      </ul>
     </div>
-    <button mat-button (click)="openTaskCreator()">Open Task Creator</button>
+    <div class="column" id="planned">
+      <h2 id="planned-header">Planned</h2>
+      <ul class="tasks" id="planned-tasks">
+        <li *ngFor="let task of tasks.planned">{{ task }}</li>
+      </ul>
+    </div>
+    <div class="column" id="in-progress">
+      <h2 id="in-progress-header"> In Progress</h2>
+      <ul class="tasks" id="in-progress-tasks">
+        <li *ngFor="let task of tasks.inProgress">{{ task }}</li>
+      </ul>
+    </div>
+    <div class="column" id="finished">
+      <h2 id="finished-header">Finished</h2>
+      <ul class="tasks" id="finished-tasks">
+        <li *ngFor="let task of tasks.finished">{{ task }}</li>
+      </ul>
+    </div>
+    <div class="column" id="verified">
+      <h2 id="verified-header">Verified</h2>
+      <ul class="tasks" id="verified-tasks">
+        <li *ngFor="let task of tasks.verified">{{ task }}</li>
+      </ul>
+    </div>
+    <!--button mat-button (click)="openTaskCreator()">Open Task Creator</button-->
 </div>
