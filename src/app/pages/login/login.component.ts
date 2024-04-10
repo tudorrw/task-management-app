@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Add this import
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+
   ) {}
 
   ngOnInit(): void {
@@ -26,17 +30,18 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle() {
     this.authService.signInWithGoogle().then((res: any) => {
-      console.log(res);
     }).catch((error: any) => {
-      console.log(error);
     });
   }
 
   loginWithEmailAndPassword() {
     console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value.username, this.loginForm.value.password).then((res: any) => {
-      console.log(res);
     }).catch((error: any) => {
+      console.log("num merge");
+
     });
   }
+
+  
 }
