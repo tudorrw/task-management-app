@@ -63,10 +63,17 @@
   background: rgba(204, 176, 176, 0.502);
   border-radius: 5px;
   margin-right: 10px;
+  min-height: 500px; /* Adjust the height as needed */
+    /* You can also use 'height' instead of 'min-height' if you want a fixed height */
+  
+}
+.column:empty {
+  height:500px;
+  border: 500px dashed #cecece;
 }
 
 .column:last-child {
-  margin-right: 0;
+  margin-right: 0
 }
 
 .column h2 {

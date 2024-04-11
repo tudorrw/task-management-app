@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="container">
-    <div class="column" id="todo" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
+    <div class="column" id="1" ref='todo' cdkDropList (cdkDropListDropped)="onTaskDrop($event,'1')" [cdkDropListConnectedTo]="['1','2','3','4','5']">
       <h2 id="to-do-header">To-Do</h2>
       <ul class="tasks" id="todo-tasks">
         <div *ngFor="let task of filterTasksByStage('To-Do')">
@@ -47,7 +47,7 @@
         </div>
       </ul>
     </div>
-    <div class="column" id="planned" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
+    <div class="column" id="2" ref='planned' cdkDropList (cdkDropListDropped)="onTaskDrop($event,'2')" [cdkDropListConnectedTo]="['1','2','3','4','5']">
       <h2 id="planned-header">Planned</h2>
       <ul class="tasks" id="planned-tasks">
         <div *ngFor="let task of filterTasksByStage('Planned')">
@@ -55,7 +55,7 @@
         </div>
       </ul>
     </div>
-    <div class="column" id="in-progress" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
+    <div class="column" id="3" ref='in-progress' cdkDropList (cdkDropListDropped)="onTaskDrop($event,'3')" [cdkDropListConnectedTo]="['1','2','3','4','5']">
       <h2 id="in-progress-header"> In Progress</h2>
       <ul class="tasks" id="in-progress-tasks">
         <div *ngFor="let task of filterTasksByStage('In Progress')">
@@ -63,7 +63,7 @@
         </div>
       </ul>
     </div>
-    <div class="column" id="finished" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
+    <div class="column" id="4" ref='finished' cdkDropList (cdkDropListDropped)="onTaskDrop($event,'4')" [cdkDropListConnectedTo]="['1','2','3','4','5']" >
       <h2 id="finished-header">Finished</h2>
       <ul class="tasks" id="finished-tasks">
         <div *ngFor="let task of filterTasksByStage('Finished')">
@@ -71,7 +71,7 @@
         </div>
       </ul>
     </div>
-    <div class="column" id="verified" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
+    <div class="column" id="5" ref='verified' cdkDropList (cdkDropListDropped)="onTaskDrop($event,'5')" [cdkDropListConnectedTo]="['1','2','3','4','5']">
       <h2 id="verified-header">Verified</h2>
       <ul class="tasks" id="verified-tasks">
         <div *ngFor="let task of filterTasksByStage('Verified')">

@@ -18,23 +18,77 @@ import { Stage } from '../../services/model/stage';
 import { DataStageService } from '../../services/shared/data-stage.service';
 import { TaskInMemory } from '../../services/model/task-in-memory';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { s } from '@fullcalendar/core/internal-common';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit{
-  onTaskDrop(event: CdkDragDrop<Task[]>) {
+  async onTaskDrop(event: CdkDragDrop<Task[]>, dropId:string) {
+    console.log("dropId",dropId)
     console.log(event.item.dropContainer.id);
     //console.log(event.item.data);
     //console.log(event.previousContainer.data[event.previousIndex])
     //console.log(event.previousContainer)
-    console.log(event.item.element.nativeElement.getAttribute(''))
+    console.log(event.item.dropContainer)
+    console.log(event.container.id)
+    console.log('event',event)
+    console.log("Drop container id:", event.container.id);
+    console.log("Task id:", event.item.element.nativeElement.id);
+    console.log(event.item.element.nativeElement.getAttributeNames())
+    console.log(event.item.element.nativeElement)
+    const id = event.item.element.nativeElement.getAttribute('id');
+    console.log(event.item.element.nativeElement.getAttribute('id'))
+
+    // Define the path to the document you want to update
+    const docRef = this.data_task.getTaskById(id || '');
+
+    // Define the data you want to update
+    const newData = {
+      stage: this.data_stage.getStageByIdRef(event.container.id) as DocumentReference<Stage>
+    };
+    console.log("stage",event.container.id)
+    console.log('dataaaaaaaaaaaaaaaa',newData)
+    console.log('ref',newData.stage)
+    console.log('ref2',event.item.dropContainer.id)
+    console.log("doc",docRef)
+
+// Call the update method with the document reference and the new data
+    await docRef.update(newData)
+      .then(() => {
+        console.log('Document updated successfully!');
+    });
+
+    console.log("result",docRef.get());
+
+// Get the document snapshot
+const docSnapshot = await docRef.get();
+
+// Check if the document exists
+
+    // Extract data from the document snapshot
+  const data = docSnapshot.data() as Task;
+
+  this.id =data.id
+  this.title = data.title;
+  this.description = data.description;
+  this.priority= data.priority,
+  this.category= data.category,
+  this.stage= newData.stage,
+  this.dueDate= data.dueDate,
+  this.userId= localStorage['token'] ?? ''
+  console.log(newData.stage)
+
+    // You can also call the addTask function here if needed
+  
+
+    this.data_task.deleteTaskById(id || '');
+
+    this.addTask();
 
 
-    const task = event.item.data;
-    const newStage = event.container.id; // Assuming the drop container's id represents the stage
-    task.stage = newStage;
+    
     // Now you may want to update the task in your data source (e.g., database) to reflect the new stage
 }
   hide: boolean = true;
