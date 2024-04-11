@@ -22,6 +22,9 @@
           <a class="nav-link" href="#">Verified</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/calendar">Calendar view</a>
+        </li>
+        <li class="nav-item">
           <a (click)="logoutUser()" class="nav-link" href="#">Logout</a>
         </li>
         
@@ -40,7 +43,7 @@
       <h2 id="to-do-header">To-Do</h2>
       <ul class="tasks" id="todo-tasks">
         <li *ngFor="let task of tasks.todo">{{ task }}</li>
-        <div *ngFor="let task of taskList">
+        <div *ngFor="let task of filterTasksByStage('To-Do')">
           <app-task-card [task]="task"></app-task-card>
         </div>
       </ul>
@@ -48,25 +51,25 @@
     <div class="column" id="planned">
       <h2 id="planned-header">Planned</h2>
       <ul class="tasks" id="planned-tasks">
-        <li *ngFor="let task of tasks.planned">{{ task }}</li>
+        <li *ngFor="let task of filterTasksByStage('Planned')">{{ task }}</li>
       </ul>
     </div>
     <div class="column" id="in-progress">
       <h2 id="in-progress-header"> In Progress</h2>
       <ul class="tasks" id="in-progress-tasks">
-        <li *ngFor="let task of tasks.inProgress">{{ task }}</li>
+        <li *ngFor="let task of filterTasksByStage('In Progress')">{{ task }}</li>
       </ul>
     </div>
     <div class="column" id="finished">
       <h2 id="finished-header">Finished</h2>
       <ul class="tasks" id="finished-tasks">
-        <li *ngFor="let task of tasks.finished">{{ task }}</li>
+        <li *ngFor="let task of filterTasksByStage('Finished')">{{ task }}</li>
       </ul>
     </div>
     <div class="column" id="verified">
       <h2 id="verified-header">Verified</h2>
       <ul class="tasks" id="verified-tasks">
-        <li *ngFor="let task of tasks.verified">{{ task }}</li>
+        <li *ngFor="let task of filterTasksByStage('Verified')">{{ task }}</li>
       </ul>
     </div>
     <button mat-button (click)="openTaskCreator()">Open Task Creator</button>

@@ -14,6 +14,9 @@ import { Priority } from '../../services/model/priority';
 import { DocumentReference } from '@angular/fire/compat/firestore';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { TaskCardComponent } from '../../task-card/task-card.component';
+import { Stage } from '../../services/model/stage';
+import { DataStageService } from '../../services/shared/data-stage.service';
+import { TaskInMemory } from '../../services/model/task-in-memory';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,9 +26,10 @@ export class DashboardComponent implements OnInit{
   hide: boolean = true;
   loginForm!: FormGroup;
 
-  taskList: Task[] = [];
+  taskList: TaskInMemory[] = [];
   categoriesList: Category[] = [];
   priorityList: Priority[] = [];
+  stageList: Stage[] = [];
 
   taskObj: Task = {
     id: '',
@@ -33,6 +37,7 @@ export class DashboardComponent implements OnInit{
     description: '',
     priority: {} as DocumentReference<Priority>,
     category: {} as DocumentReference<Category>,
+    stage: {} as DocumentReference<Stage>,
     dueDate: new Date(""),
     userId: ''
   };
@@ -63,11 +68,13 @@ export class DashboardComponent implements OnInit{
     private router: Router,
     private data_task: DataTaskService,
     private data_category: DataCategoryService,
-    private data_priority: DataPriorityService
+    private data_priority: DataPriorityService,
+    private data_stage: DataStageService
   ) {
 
     this.getAllCategories();
     this.getAllPriorities();
+    this.getAllStages();
     console.log("cat"+this.categoriesList);
     console.log("prio"+this.priorityList);
   }
@@ -125,7 +132,7 @@ export class DashboardComponent implements OnInit{
         return from(Promise.all(res.map(async (e: any) => {
           const data = e.payload.doc.data();
           data.id = e.payload.doc.id;
-          //console.log("pre",data);
+          console.log("pre",data);
           //console.log("categoru",data.category)
           const categorySnapshot = await data.category.get();
           const categoryData = categorySnapshot.data();
@@ -138,6 +145,12 @@ export class DashboardComponent implements OnInit{
           const priorityData = prioritySnapshot.data();
           data.priority = priorityData.name;
           //console.log("priorityData",priorityData.name)
+          console
+          const stageSnapshot = await data.stage.get();
+          const stageData = stageSnapshot.data();
+          data.stage = stageData.name;
+          console.log("stageData",stageData.name)
+
           data.dueDate = data.dueDate.toDate();
           //console.log("final",data);
           return data;
@@ -146,112 +159,6 @@ export class DashboardComponent implements OnInit{
     );
   }
 
-  getAllTasks5() {
-    return this.data_task.getAllTasks().pipe(
-      map((res: any) => {
-        return res.map((e: any) => {
-          const data = e.payload.doc.data();
-          data.id = e.payload.doc.id;
-          console.log(data);
-          data.category = data.category.get();
-          return data;
-        });
-      })
-    );
-  }
-
-  getAllTasks4() {
-    const observer: Observer<any> = {
-      next: (res: any) => {
-        console.log("res"+res)
-        this.taskList = res.map((e: any) => {
-          console.log("e"+e)
-          console.log("p"+e.payload)
-          console.log("Document ID:", e.payload.doc.id);
-          console.log("Document Data:", e.payload.doc.data());
-          const data = e.payload.doc.data();
-          data.category=data.category.get();
-          console.log("data"+ data);
-          data.id = e.payload.doc.id;
-          // Fetch category details based on categoryId
-          //this.data_category.getCategoryById(data.category).subscribe((category: any) => {
-          //console.log(category);
-          //data.category = category; // Assign category details to the task
-          //});
-          console.log(data.category)
-          return data;
-        });
-      },
-      error: (error: any) => {
-        console.log(error);
-      },
-      complete: () => {} // You can provide a complete handler if needed
-    };
-
-    
-  
-    return this.data_task.getAllTasks().subscribe(observer);
-  }
-
-  getAllTasks3(): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      this.data_task.getAllTasks().subscribe(
-        (res: any) => {
-          const tasks = res.map((e: any) => {
-            const data = e.payload.doc.data();
-            data.id = e.payload.doc.id;
-            const categoryRef = data.category;
-            return categoryRef.get().then((categorySnapshot: any) => {
-              if (categorySnapshot.exists) {
-                const categoryData = categorySnapshot.data();
-                data.category = categoryData;
-                console.log("Category data:", categoryData);
-                return data;
-              } else {
-                console.log("Category does not exist."+ data.doc.id);
-                return null;
-              }
-            }).catch((error: any) => {
-              console.error("Error fetching category:", error);
-              return null;
-            });
-          });
-  
-          Promise.all(tasks).then((resolvedTasks: any[]) => {
-            const filteredTasks = resolvedTasks.filter(task => task !== null);
-            resolve(filteredTasks);
-          });
-        },
-        (error: any) => {
-          console.log("Error:", error);
-          reject(error);
-        }
-      );
-    });
-  }
-  
-
-  getAllTasks2() {
-    this.data_task.getAllTasks().subscribe(
-      (res: any) => {
-        this.taskList = res.map((e: any) => {
-          const data = e.payload.doc.data();
-          data.id = e.payload.doc.id;
-          // Fetch category details based on categoryId
-          this.data_category.getCategoryById(data.category).subscribe((category: any) => {
-            // Process category data if needed
-          });
-          return data;
-        });
-      },
-      (error: any) => {
-        // Handle errors if needed
-      },
-      () => {
-        // Handle completion if needed
-      }
-    );
-  }
   
   addTask() {
     this.taskObj = {
@@ -261,7 +168,8 @@ export class DashboardComponent implements OnInit{
       priority: this.priority,
       category: this.category,
       dueDate: this.dueDate,
-      userId: this.userId
+      userId: this.userId,
+      stage: this.data_stage.getStageByIdRef('1') as DocumentReference<Stage>
     };
     console.log("task"+this.taskObj);
     this.data_task.addTask(this.taskObj).then(() => {
@@ -324,6 +232,18 @@ export class DashboardComponent implements OnInit{
     });
   }
 
+  getAllStages() {
+    this.data_stage.getAllStages().subscribe(res=> {
+      this.stageList = res.map((e: any) => {
+        console.log(e.payload.doc.data());
+        return {
+          id: e.payload.doc.id,
+          name: e.payload.doc.data()['name'],
+          color: e.payload.doc.data()['color']
+        };
+      });
+    });
+  }
 
   getCategoryFromName(categoryName: string) {
     const category = this.categoriesList.find(category => category.name.toLowerCase() === categoryName);
@@ -333,6 +253,30 @@ export class DashboardComponent implements OnInit{
   getPriorityFromName(priorityName: string) {
     const priority = this.priorityList.find(priority => priority.name.toLowerCase() === priorityName);
     return priority ? priority.id : null;
+  }
+
+  filterTasksByCategory(category: string) {
+    console.log("categoryfilter",this.taskList);
+    console.log("categoryfilter",this.taskList[0].category);
+    console.log("categoryfilter",this.taskList[0].category);
+    console.log("categoryfilter",typeof(this.taskList[0].category));
+    console.log("categoryfilter",(this.taskList[0].category as string));
+
+
+
+    return this.taskList.filter(task => (task.category as string) === category);
+  }
+
+  filterTasksByStage(stage: string) {
+    console.log("categoryfilter",this.taskList);
+    console.log("categoryfilter",this.taskList[0].category);
+    console.log("categoryfilter",this.taskList[0].category);
+    console.log("categoryfilter",typeof(this.taskList[0].category));
+    console.log("categoryfilter",(this.taskList[0].category as string));
+
+
+
+    return this.taskList.filter(task => task.stage === stage);
   }
 
 }
