@@ -1,3 +1,8 @@
+import "./chunk-DGVM6TSC.js";
+import "./chunk-HBURHTYN.js";
+import {
+  isPlatformServer
+} from "./chunk-2DTRLJJG.js";
 import {
   FIREBASE_APP_NAME,
   FIREBASE_OPTIONS,
@@ -13,12 +18,10 @@ import {
   ɵgetDefaultInstanceOf,
   ɵlazySDKProxy,
   ɵzoneWrap
-} from "./chunk-H5YYUUXM.js";
-import "./chunk-GJMYAEC5.js";
+} from "./chunk-UHZCUERK.js";
 import {
   firebase
-} from "./chunk-RD7HWGJZ.js";
-import "./chunk-2I65G7MD.js";
+} from "./chunk-5GUGR7JL.js";
 import {
   Component,
   Deferred,
@@ -38,10 +41,7 @@ import {
   registerVersion,
   setLogLevel,
   uuidv4
-} from "./chunk-4DJHWH4A.js";
-import {
-  isPlatformServer
-} from "./chunk-IFTCLJ6J.js";
+} from "./chunk-OAIN7SXH.js";
 import {
   Inject,
   Injectable,
@@ -72,12 +72,13 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-YDU7QI3K.js";
+} from "./chunk-ANQFF4P4.js";
+import "./chunk-LHRTKJE6.js";
 import {
   __async
-} from "./chunk-DLSO5B7O.js";
+} from "./chunk-47AXDMZD.js";
 
-// ../../../node_modules/@angular/fire/fesm2022/angular-fire-app.mjs
+// node_modules/@angular/fire/fesm2022/angular-fire-app.mjs
 var FirebaseApp = class {
   constructor(app) {
     return app;
@@ -144,7 +145,7 @@ var onLog2 = ɵzoneWrap(onLog, true);
 var registerVersion2 = ɵzoneWrap(registerVersion, true);
 var setLogLevel2 = ɵzoneWrap(setLogLevel, true);
 
-// ../../../node_modules/@firebase/app-check/dist/esm/index.esm2017.js
+// node_modules/@firebase/app-check/dist/esm/index.esm2017.js
 var APP_CHECK_STATES = /* @__PURE__ */ new Map();
 var DEFAULT_STATE = {
   activated: false,
@@ -891,7 +892,7 @@ function registerAppCheck() {
 }
 registerAppCheck();
 
-// ../../../node_modules/@angular/fire/fesm2022/angular-fire-app-check.mjs
+// node_modules/@angular/fire/fesm2022/angular-fire-app-check.mjs
 var AppCheck = class {
   constructor(appCheck) {
     return appCheck;
@@ -942,7 +943,7 @@ var initializeAppCheck2 = ɵzoneWrap(initializeAppCheck, true);
 var onTokenChanged2 = ɵzoneWrap(onTokenChanged, true);
 var setTokenAutoRefreshEnabled2 = ɵzoneWrap(setTokenAutoRefreshEnabled, true);
 
-// ../../../node_modules/@angular/fire/fesm2022/angular-fire-compat-auth.mjs
+// node_modules/@angular/fire/fesm2022/angular-fire-compat-auth.mjs
 var proxyPolyfillCompat = {
   name: null,
   config: null,
@@ -1032,7 +1033,7 @@ var AngularFireAuth = class _AngularFireAuth {
   credential;
   constructor(options, name2, platformId, zone, schedulers, useEmulator, settings, tenantId, languageCode, useDeviceLanguage, persistence, _appCheckInstances) {
     const logins = new Subject();
-    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-C73BFE6U.js"))), map(() => ɵfirebaseAppFactory(options, zone, name2)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
+    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-LU5NZVFC.js"))), map(() => ɵfirebaseAppFactory(options, zone, name2)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
       bufferSize: 1,
       refCount: false
     }));
