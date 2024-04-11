@@ -1,12 +1,14 @@
 import { Component, OnInit, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
+import { ChangeDetectorRef } from '@angular/core';
+
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 
 @Component({
@@ -16,9 +18,14 @@ import { INITIAL_EVENTS, createEventId } from './event-utils';
 })
 export class CalendarComponent implements OnInit {
   isBrowser: boolean;
-  calendarVisible = true;
-  calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
+  calendarVisible = signal(true);
+  calendarOptions = signal<CalendarOptions>({
+    plugins: [
+      interactionPlugin,
+      dayGridPlugin,
+      timeGridPlugin,
+      listPlugin,
+    ],
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -34,13 +41,19 @@ export class CalendarComponent implements OnInit {
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this)
-  };
-  currentEvents: EventApi[] = [];
+    /* you can update a remote database when these fire:
+    eventAdd:
+    eventChange:
+    eventRemove:
+    */
+  });
+  currentEvents = signal<EventApi[]>([]);
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -55,12 +68,14 @@ export class CalendarComponent implements OnInit {
     }
   }
   handleCalendarToggle() {
-    this.calendarVisible = !this.calendarVisible;
+    this.calendarVisible.update((bool) => !bool);
   }
   
   handleWeekendsToggle() {
-    this.calendarOptions.weekends = !this.calendarOptions.weekends;
-  }
+    this.calendarOptions.update((options) => {
+      options.weekends = !options.weekends;
+      return options;
+    });  }
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('Please enter a new title for your event');
@@ -86,8 +101,8 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEvents(events: EventApi[]) {
-    this.currentEvents = events;
-  }
+    this.currentEvents.set(events);
+    this.changeDetector.detectChanges();  }
   
   
   

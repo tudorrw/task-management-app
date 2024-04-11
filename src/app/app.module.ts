@@ -39,8 +39,7 @@ import { TaskCardComponent } from './task-card/task-card.component';
     ForgotPasswordComponent,
     VerifyEmailComponent,
     TaskCreatorPopupComponent,
-    CalendarComponent
-    TaskCreatorPopupComponent,
+    CalendarComponent,
     TaskCardComponent
   ],
   imports: [
