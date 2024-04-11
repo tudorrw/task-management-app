@@ -52,9 +52,7 @@ export class TaskCreatorPopupComponent implements OnInit {
   saveTask(): void {
     if (this.taskForm.valid) {
       const taskData = this.taskForm.value;
-      // Send task data to the service to save
-      // Close the dialog
-      this.dialogRef.close();
+      this.dialogRef.close(taskData);
     } else {
       // Form is invalid, mark all fields as touched to display validation errors
       this.markFormGroupTouched(this.taskForm);
