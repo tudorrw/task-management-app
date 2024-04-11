@@ -17,6 +17,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -25,6 +26,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creator-popup.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creat
     DashboardComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
-    TaskCreatorPopupComponent
+    TaskCreatorPopupComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creat
     MatNativeDateModule,
     MatSelectModule,
     MatSnackBarModule,
+    FullCalendarModule
   ],
   providers: [
     provideClientHydration(),
