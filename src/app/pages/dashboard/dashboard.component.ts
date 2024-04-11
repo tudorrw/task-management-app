@@ -6,13 +6,14 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Task } from '../../services/model/task';
 import { DataTaskService } from '../../services/shared/data-task.service';
-import { Observer, map } from 'rxjs';
+import { Observer, flatMap, from, map } from 'rxjs';
 import { DataCategoryService } from '../../services/shared/data-category.service';
 import { DataPriorityService } from '../../services/shared/data-priority.service';
 import { Category } from '../../services/model/category';
 import { Priority } from '../../services/model/priority';
 import { DocumentReference } from '@angular/fire/compat/firestore';
 import { coerceStringArray } from '@angular/cdk/coercion';
+import { TaskCardComponent } from '../../task-card/task-card.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -67,8 +68,8 @@ export class DashboardComponent implements OnInit{
 
     this.getAllCategories();
     this.getAllPriorities();
-    console.log(this.categoriesList);
-    console.log(this.priorityList);
+    console.log("cat"+this.categoriesList);
+    console.log("prio"+this.priorityList);
   }
 
   ngOnInit(): void {
@@ -76,8 +77,18 @@ export class DashboardComponent implements OnInit{
     if(this.authService.isLoggedIn() == false) {
         this.router.navigate(['/login']);
       }
-  
-  }
+
+      this.getAllCategories();
+      this.getAllPriorities();
+      console.log("cat"+this.categoriesList);
+      console.log("prio"+this.priorityList);
+
+      this.getAllTasks().subscribe(taskList => {
+        this.taskList = taskList;
+        console.log(this.taskList);
+      });
+
+    }
 
 
   logoutUser() {
@@ -109,6 +120,33 @@ export class DashboardComponent implements OnInit{
   }
 
   getAllTasks() {
+    return this.data_task.getAllTasks().pipe(
+      flatMap((res: any[]) => {
+        return from(Promise.all(res.map(async (e: any) => {
+          const data = e.payload.doc.data();
+          data.id = e.payload.doc.id;
+          //console.log("pre",data);
+          //console.log("categoru",data.category)
+          const categorySnapshot = await data.category.get();
+          const categoryData = categorySnapshot.data();
+          //console.log("categoryData",categoryData)
+          //console.log("categoryData",categoryData.name)
+
+          data.category = categoryData.name;
+
+          const prioritySnapshot = await data.priority.get();
+          const priorityData = prioritySnapshot.data();
+          data.priority = priorityData.name;
+          //console.log("priorityData",priorityData.name)
+          data.dueDate = data.dueDate.toDate();
+          //console.log("final",data);
+          return data;
+        })));
+      })
+    );
+  }
+
+  getAllTasks5() {
     return this.data_task.getAllTasks().pipe(
       map((res: any) => {
         return res.map((e: any) => {
@@ -298,4 +336,3 @@ export class DashboardComponent implements OnInit{
   }
 
 }
-

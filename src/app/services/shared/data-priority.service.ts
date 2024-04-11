@@ -12,6 +12,10 @@ export class DataPriorityService {
     return this.afs.collection('/Priorities').snapshotChanges();
   }
 
+  getPriorityById(id: string) {
+    return this.afs.collection('/Priorities').doc(id).snapshotChanges();
+  }
+
   getPriorityByIdRef(id: string) {
     return this.afs.collection('/Priorities').doc(id).ref;
   }
