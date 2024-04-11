@@ -8,6 +8,7 @@
           <li>Select dates and you will be prompted to create a new event</li>
           <li>Drag, drop, and resize events</li>
           <li>Click an event to delete it</li>
+          <!-- <button (click)='seeTasks()'>see tasks</button> -->
         </ul>
       </div>
       <div class='calendar-sidebar-section'>
@@ -24,17 +25,17 @@
         <label>
           <input
             type='checkbox'
-            [checked]='calendarOptions().weekends'
+            [checked]='calendarOptions.weekends'
             (change)='handleWeekendsToggle()'
           />
           toggle weekends
         </label>
       </div>
       <div class='calendar-sidebar-section'>
-        <h2>All Events ({{currentEvents().length}})</h2>
+        <h2>All Events ({{currentTasks().length}})</h2>
         <ul>
-          <li *ngFor='let event of currentEvents()'>
-            <b>{{event.startStr}}</b>
+          <li *ngFor='let event of currentTasks()'>
+            <b>{{event.start}}</b>
             <i>{{event.title}}</i>
           </li>
         </ul>
@@ -44,7 +45,7 @@
     <div class='calendar-main'>
       <full-calendar
         *ngIf='calendarVisible'
-        [options]='calendarOptions()'
+        [options]='calendarOptions'
       ></full-calendar>
     </div>
   
