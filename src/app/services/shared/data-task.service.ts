@@ -25,8 +25,16 @@ export class DataTaskService {
     return this.afs.collection('/Tasks').doc(task.id).update(task);
   }
 
+  getTaskById(id: string) {
+    return this.afs.collection('/Tasks').doc(id).ref;
+  }
+
   deleteTask(task: Task) {
     return this.afs.collection('/Tasks').doc(task.id).delete();
+  }
+
+  deleteTaskById(id: string) {
+    return this.afs.collection('/Tasks').doc(id).delete();
   }
 
 
