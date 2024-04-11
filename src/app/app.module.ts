@@ -27,6 +27,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creator-popup.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
+import { TaskCardComponent } from './task-card/task-card.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,8 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
     VerifyEmailComponent,
     TaskCreatorPopupComponent,
     CalendarComponent
+    TaskCreatorPopupComponent,
+    TaskCardComponent
   ],
   imports: [
     BrowserModule,

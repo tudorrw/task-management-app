@@ -40,6 +40,9 @@
       <h2 id="to-do-header">To-Do</h2>
       <ul class="tasks" id="todo-tasks">
         <li *ngFor="let task of tasks.todo">{{ task }}</li>
+        <div *ngFor="let task of taskList">
+          <app-task-card [task]="task"></app-task-card>
+        </div>
       </ul>
     </div>
     <div class="column" id="planned">
