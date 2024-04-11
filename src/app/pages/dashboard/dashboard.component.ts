@@ -17,12 +17,26 @@ import { TaskCardComponent } from '../../task-card/task-card.component';
 import { Stage } from '../../services/model/stage';
 import { DataStageService } from '../../services/shared/data-stage.service';
 import { TaskInMemory } from '../../services/model/task-in-memory';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit{
+  onTaskDrop(event: CdkDragDrop<Task[]>) {
+    console.log(event.item.dropContainer.id);
+    //console.log(event.item.data);
+    //console.log(event.previousContainer.data[event.previousIndex])
+    //console.log(event.previousContainer)
+    console.log(event.item.element.nativeElement.getAttribute(''))
+
+
+    const task = event.item.data;
+    const newStage = event.container.id; // Assuming the drop container's id represents the stage
+    task.stage = newStage;
+    // Now you may want to update the task in your data source (e.g., database) to reflect the new stage
+}
   hide: boolean = true;
   loginForm!: FormGroup;
 
@@ -48,6 +62,7 @@ export class DashboardComponent implements OnInit{
   category : DocumentReference<Category> = {} as DocumentReference<Category>;
   dueDate : Date = new Date("");;
   userId : string = '';
+  stage: DocumentReference<Stage> = {} as DocumentReference<Stage>;
   
 
   tasks = {
@@ -75,20 +90,20 @@ export class DashboardComponent implements OnInit{
     this.getAllCategories();
     this.getAllPriorities();
     this.getAllStages();
-    console.log("cat"+this.categoriesList);
-    console.log("prio"+this.priorityList);
+    //console.log("cat"+this.categoriesList);
+    //console.log("prio"+this.priorityList);
   }
 
   ngOnInit(): void {
-    console.log(this.authService.isLoggedIn());
+    //console.log(this.authService.isLoggedIn());
     if(this.authService.isLoggedIn() == false) {
         this.router.navigate(['/login']);
       }
 
       this.getAllCategories();
       this.getAllPriorities();
-      console.log("cat"+this.categoriesList);
-      console.log("prio"+this.priorityList);
+      //console.log("cat"+this.categoriesList);
+      //console.log("prio"+this.priorityList);
 
       this.getAllTasks().subscribe(taskList => {
         this.taskList = taskList;
@@ -109,19 +124,20 @@ export class DashboardComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-              console.log(result);
+              //console.log(result);
               this.title = result.title;
               this.description = result.description;
               this.priority = this.data_priority.getPriorityByIdRef(this.getPriorityFromName(result.priority ?? '') ?? '') as DocumentReference<Priority>;
               this.category = this.data_category.getCategoryByIdRef(this.getCategoryFromName(result.category ?? '') ?? '') as DocumentReference<Category>;
               this.dueDate = result.dueDate;
               this.userId = localStorage['token'] ?? '';
+              this.stage=this.data_stage.getStageByIdRef('1') as DocumentReference<Stage>;
               this.addTask();
               
           // Call getAllTasks and update this.taskList after the subscription completes
           this.getAllTasks().subscribe(taskList => {
             this.taskList = taskList;
-            console.log(this.taskList);
+            //console.log(this.taskList);
           });
     });
   }
@@ -145,11 +161,10 @@ export class DashboardComponent implements OnInit{
           const priorityData = prioritySnapshot.data();
           data.priority = priorityData.name;
           //console.log("priorityData",priorityData.name)
-          console
           const stageSnapshot = await data.stage.get();
           const stageData = stageSnapshot.data();
           data.stage = stageData.name;
-          console.log("stageData",stageData.name)
+          //console.log("stageData",stageData.name)
 
           data.dueDate = data.dueDate.toDate();
           //console.log("final",data);
@@ -169,7 +184,7 @@ export class DashboardComponent implements OnInit{
       category: this.category,
       dueDate: this.dueDate,
       userId: this.userId,
-      stage: this.data_stage.getStageByIdRef('1') as DocumentReference<Stage>
+      stage: this.stage
     };
     console.log("task"+this.taskObj);
     this.data_task.addTask(this.taskObj).then(() => {
@@ -208,8 +223,8 @@ export class DashboardComponent implements OnInit{
   getAllCategories() {
     this.data_category.getAllCategories().subscribe(res=> {
       this.categoriesList = res.map((e: any) => {
-      console.log(e.payload.doc.data());
-      console.log(this.data_category.getCategoryByIdRef(e.payload.doc.id));
+      //console.log(e.payload.doc.data());
+      //console.log(this.data_category.getCategoryByIdRef(e.payload.doc.id));
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['name'],
@@ -222,7 +237,7 @@ export class DashboardComponent implements OnInit{
   getAllPriorities() {
     this.data_priority.getAllPriorities().subscribe(res=> {
       this.priorityList = res.map((e: any) => {
-        console.log(e.payload.doc.data());
+        //console.log(e.payload.doc.data());
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['name'],
@@ -256,27 +271,15 @@ export class DashboardComponent implements OnInit{
   }
 
   filterTasksByCategory(category: string) {
-    console.log("categoryfilter",this.taskList);
-    console.log("categoryfilter",this.taskList[0].category);
-    console.log("categoryfilter",this.taskList[0].category);
-    console.log("categoryfilter",typeof(this.taskList[0].category));
-    console.log("categoryfilter",(this.taskList[0].category as string));
-
-
-
-    return this.taskList.filter(task => (task.category as string) === category);
+    return this.taskList.filter(task => task.category === category);
   }
 
   filterTasksByStage(stage: string) {
-    console.log("categoryfilter",this.taskList);
-    console.log("categoryfilter",this.taskList[0].category);
-    console.log("categoryfilter",this.taskList[0].category);
-    console.log("categoryfilter",typeof(this.taskList[0].category));
-    console.log("categoryfilter",(this.taskList[0].category as string));
-
-
-
     return this.taskList.filter(task => task.stage === stage);
+  }
+
+  filterTasksByPriority(priority: string) {
+    return this.taskList.filter(task => task.priority === priority);
   }
 
 }

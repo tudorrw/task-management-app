@@ -3,6 +3,7 @@ import { Task } from '../services/model/task';
 import { DataCategoryService } from '../services/shared/data-category.service';
 import { DataPriorityService } from '../services/shared/data-priority.service';
 import { TaskInMemory } from '../services/model/task-in-memory';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task-card',

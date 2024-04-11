@@ -28,6 +28,8 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creator-popup.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { TaskCardComponent } from './task-card/task-card.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { TaskCardComponent } from './task-card/task-card.component';
     MatNativeDateModule,
     MatSelectModule,
     MatSnackBarModule,
-    FullCalendarModule
+    FullCalendarModule,
+    DragDropModule
   ],
   providers: [
     provideClientHydration(),

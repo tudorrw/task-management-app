@@ -39,37 +39,44 @@
         </div>
       </div>
       <div class="container">
-    <div class="column" id="todo">
+    <div class="column" id="todo" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
       <h2 id="to-do-header">To-Do</h2>
       <ul class="tasks" id="todo-tasks">
-        <li *ngFor="let task of tasks.todo">{{ task }}</li>
         <div *ngFor="let task of filterTasksByStage('To-Do')">
           <app-task-card [task]="task"></app-task-card>
         </div>
       </ul>
     </div>
-    <div class="column" id="planned">
+    <div class="column" id="planned" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
       <h2 id="planned-header">Planned</h2>
       <ul class="tasks" id="planned-tasks">
-        <li *ngFor="let task of filterTasksByStage('Planned')">{{ task }}</li>
+        <div *ngFor="let task of filterTasksByStage('Planned')">
+          <app-task-card [task]="task"></app-task-card>
+        </div>
       </ul>
     </div>
-    <div class="column" id="in-progress">
+    <div class="column" id="in-progress" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
       <h2 id="in-progress-header"> In Progress</h2>
       <ul class="tasks" id="in-progress-tasks">
-        <li *ngFor="let task of filterTasksByStage('In Progress')">{{ task }}</li>
+        <div *ngFor="let task of filterTasksByStage('In Progress')">
+          <app-task-card [task]="task"></app-task-card>
+        </div>
       </ul>
     </div>
-    <div class="column" id="finished">
+    <div class="column" id="finished" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
       <h2 id="finished-header">Finished</h2>
       <ul class="tasks" id="finished-tasks">
-        <li *ngFor="let task of filterTasksByStage('Finished')">{{ task }}</li>
+        <div *ngFor="let task of filterTasksByStage('Finished')">
+          <app-task-card [task]="task"></app-task-card>
+        </div>
       </ul>
     </div>
-    <div class="column" id="verified">
+    <div class="column" id="verified" cdkDropList (cdkDropListDropped)="onTaskDrop($event)">
       <h2 id="verified-header">Verified</h2>
       <ul class="tasks" id="verified-tasks">
-        <li *ngFor="let task of filterTasksByStage('Verified')">{{ task }}</li>
+        <div *ngFor="let task of filterTasksByStage('Verified')">
+          <app-task-card [task]="task"></app-task-card>
+        </div>
       </ul>
     </div>
     <button mat-button (click)="openTaskCreator()">Open Task Creator</button>
