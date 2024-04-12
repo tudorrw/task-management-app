@@ -4,7 +4,9 @@ import { DataCategoryService } from '../services/shared/data-category.service';
 import { DataPriorityService } from '../services/shared/data-priority.service';
 import { TaskInMemory } from '../services/model/task-in-memory';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-
+import { DataTaskService } from '../services/shared/data-task.service';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
@@ -12,15 +14,34 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 })
 
 export class TaskCardComponent {
+
+  deleteTask(taskId: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      console.log('The dialog was closed', result);
+      if (result === true) {
+        console.log('Confirmed', taskId);
+        console.log(taskId);
+        this.data_task.deleteTaskById(taskId); // Delete task if confirmed
+      } else {
+        console.log("Deletion canceled."); // Handle cancelation
+      }
+    });
+
+  }
+
+
   @Input() task: TaskInMemory | null = null;
 
-  constructor() {}
+  constructor(private data_task: DataTaskService,private dialog: MatDialog) {}
 
   get isTaskInitialized(): boolean {
     console.log("task",this.task)
     return this.task !== null;
   }
 }
+
 
 /* export class TaskCardComponent implements OnInit {
   @Input() task: Task= {} as Task;

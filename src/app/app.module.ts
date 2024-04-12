@@ -30,6 +30,7 @@ import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creat
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { TaskPopupComponent } from './task-popup/task-popup.component';
 
 
@@ -45,7 +46,9 @@ import { TaskPopupComponent } from './task-popup/task-popup.component';
     TaskCreatorPopupComponent,
     CalendarComponent,
     TaskCardComponent,
-    TaskPopupComponent
+    TaskPopupComponent,
+    TaskCardComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
