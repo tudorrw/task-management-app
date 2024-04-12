@@ -1,16 +1,14 @@
 
 <div class='calendar'>
+  <!-- <style>
+    :root {
+
+      --fc-button-active-bg-color: #9b1e1e;
+    }
+    </style> -->
 
     <div class='calendar-sidebar'>
-      <div class='calendar-sidebar-section'>
-        <h2>Instructions</h2>
-        <ul>
-          <li>Select dates and you will be prompted to create a new event</li>
-          <li>Drag, drop, and resize events</li>
-          <li>Click an event to delete it</li>
-          <!-- <button (click)='seeTasks()'>see tasks</button> -->
-        </ul>
-      </div>
+      <a mat-stroked-button href="/dashboard" target="_blank">Dashboard</a>
       <div class='calendar-sidebar-section'>
         <label>
           <input
@@ -35,8 +33,10 @@
         <h2>All Events ({{currentTasks().length}})</h2>
         <ul>
           <li *ngFor='let event of currentTasks()'>
-            <b>{{event.start}}</b>
-            <i>{{event.title}}</i>
+            <b>{{event.title}}</b>
+            <i>{{event.start}}</i>
+            <i>{{event.end}}</i>
+
           </li>
         </ul>
       </div>
@@ -48,6 +48,7 @@
         [options]='calendarOptions'
       ></full-calendar>
     </div>
+
   
   </div>
   

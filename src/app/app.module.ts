@@ -18,6 +18,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -29,6 +30,7 @@ import { TaskCreatorPopupComponent } from './pages/task-creator-popup/task-creat
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TaskPopupComponent } from './task-popup/task-popup.component';
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     VerifyEmailComponent,
     TaskCreatorPopupComponent,
     CalendarComponent,
-    TaskCardComponent
+    TaskCardComponent,
+    TaskPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatSelectModule,
     MatSnackBarModule,
     FullCalendarModule,
-    DragDropModule
+    DragDropModule,
+    MatDialogModule
   ],
   providers: [
     provideClientHydration(),

@@ -29,7 +29,13 @@ h2 {
     width: 300px;
     line-height: 1.5;
     background: #eaf9ff;
-    border-right: 1px solid #d3e2e8;
+    left: 30px;
+
+    text-align: center;
+    justify-content: center;
+    margin-top: 20px;
+    border-right: 1px solid #8abfd4;
+    
   }
   
   .calendar-sidebar-section {
@@ -48,4 +54,3 @@ h2 {
     height: 100%;
 
   }
-  

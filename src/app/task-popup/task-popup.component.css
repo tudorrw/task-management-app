@@ -1,0 +1,44 @@
+.task-popup-content {
+  border-radius: 8px;
+  width: 300px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.task-popup-header {
+  height: 50px;
+  text-align: center;
+  display: flex; /* Ensure flexbox layout */
+  align-items: center; /* Vertically center content */
+  justify-content: center;
+  background-color: #53cae2;
+  color: white; /* Text color */
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.task-popup-body {
+  padding: 20px; /* Add some padding */
+  border: 2px solid #53cae2; /* Add a border */
+  border-radius: 8px;
+}
+
+/* Style individual paragraph elements */
+.task-popup-body p {
+  margin: 8px 0; /* Add some vertical margin */
+}
+
+/* Button style */
+.exit-button {
+  display: grid;
+}
+
+.mat-dialog-actions button {
+  color: #aa8dbf; /* Text color */
+  font-weight: bold;
+}
+
+/* Button hover effect */
+.mat-dialog-actions button:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Light background color on hover */
+}

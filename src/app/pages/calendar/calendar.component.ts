@@ -14,6 +14,8 @@ import { DataTaskService } from '../../services/shared/data-task.service';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 import { TaskInMemory } from '../../services/model/task-in-memory';
 import { Observer, flatMap, from, forkJoin } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskPopupComponent } from '../../task-popup/task-popup.component';
 
 
 @Component({
@@ -28,7 +30,9 @@ export class CalendarComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private authService: AuthService,
     private router: Router,
-    private dataTaskService: DataTaskService
+    private dataTaskService: DataTaskService,
+    private dialog: MatDialog // Inject MatDialog
+
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -53,7 +57,6 @@ export class CalendarComponent implements OnInit {
     this.getAllTasks().subscribe(async taskList => {
 
       const events = this.transformTasksToEvents(taskList);
-      console.log("events",events);
       this.calendarOptions.events = events;
     });
     // Initialize calendarOptions with INITIAL_EVENTS
@@ -96,26 +99,33 @@ export class CalendarComponent implements OnInit {
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    const title = prompt('Please enter a new title for your event');
-    const calendarApi = selectInfo.view.calendar;
+    // const title = prompt('Please enter a new title for your event');
+    // const calendarApi = selectInfo.view.calendar;
 
-    calendarApi.unselect(); // clear date selection
+    // calendarApi.unselect(); // clear date selection
 
-    if (title) {
-      calendarApi.addEvent({
-        id: '2',
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      });
-    }
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: '2',
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   });
+    // }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    this.getAllTasks().subscribe(taskList => {
+      const taskDetails = taskList.find(task => task.id === clickInfo.event.id); // Assuming taskList contains your TaskInMemory objects
+      if (taskDetails) {
+        this.dialog.open(TaskPopupComponent, {
+          data: { event: clickInfo.event, 
+            task: taskDetails }
+        });
+      }
+
+    });
   }
 
   handleEvents(events: EventApi[]) {
@@ -153,44 +163,30 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  // transformTaskToEvent(task: TaskInMemory): EventApi {
-  //   const startTime = new Date(task.dueDate);
-  //   const endTime = new Date(startTime.getTime() + 3 * 60 * 60 * 1000); // Add 3 hours
-  
-  //   const event: EventApi = {
-  //     id: task.id,
-  //     title: task.title,
-  //     start: startTime,
-  //     end: endTime,
-  //     // Add any other properties you want to include in the event
-  //   };
-  
-  //   return event;
-  // }
-  
-  //  transformTasksToEvents(tasks: TaskInMemory[]): EventApi[] {
-  //   return tasks.map(task => transformTaskToEvent(task));
-  // }
-
-
   transformTasksToEvents(tasks: TaskInMemory[]): EventInput[] {
     return tasks.map(task => {
       const startTime = new Date(task.dueDate);
-      console.log("startTime",startTime);
       const year = startTime.getFullYear();
       const month = String(startTime.getMonth() + 1).padStart(2, '0'); // Month is zero-indexed, so add 1
       const day = String(startTime.getDate()).padStart(2, '0');
       const startTimeStr = `${year}-${month}-${day}`;
-      console.log("startTimeStr",startTimeStr);
-      // const endTimeStr = new Date(startTime.getTime() + 3 * 60 * 60 * 1000).toISOString().replace(/T.*$/, ''); // Add 3 hours
-      // console.log("endTimeStr",endTimeStr);
+      // Get the end date by adding one day to the start date
+      const endDate = new Date(startTime);
+      endDate.setDate(endDate.getDate() + 1);
+      const endYear = endDate.getFullYear();
+      const endMonth = String(endDate.getMonth() + 1).padStart(2, '0'); // Month is zero-indexed, so add 1
+      const endDay = String(endDate.getDate()).padStart(2, '0');
+      const endTimeStr = `${endYear}-${endMonth}-${endDay}`;
+      console.log("end",endTimeStr);
       return {
         id: task.id,
         title: task.title,
-        start: startTimeStr+'T00:00:00',
+        start: startTimeStr + 'T00:00:00',
+        end: endTimeStr + 'T00:00:00',
       };
     });
   }
+  
 
 
 }
