@@ -8,7 +8,7 @@
     </style> -->
 
     <div class='calendar-sidebar'>
-      <a mat-stroked-button href="/dashboard" target="_blank">Dashboard</a>
+      <a mat-stroked-button href="/dashboard">Dashboard</a>
       <div class='calendar-sidebar-section'>
         <label>
           <input
@@ -35,8 +35,6 @@
           <li *ngFor='let event of currentTasks()'>
             <b>{{event.title}}</b>
             <i>{{event.start}}</i>
-            <i>{{event.end}}</i>
-
           </li>
         </ul>
       </div>

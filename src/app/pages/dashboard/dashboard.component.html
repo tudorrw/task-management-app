@@ -17,7 +17,7 @@
           <button class="btn" (click)="openTaskCreator()" >Add Task</button>
         </div>
       </div>
-      <div class="container">
+      <div class="container nowrap">
     <div class="column" id="1" ref='todo' cdkDropList (cdkDropListDropped)="onTaskDrop($event,'1')" [cdkDropListConnectedTo]="['1','2','3','4','5']">
       <h2 id="to-do-header">To-Do</h2>
       <ul class="tasks" id="todo-tasks">

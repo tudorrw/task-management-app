@@ -53,14 +53,22 @@
 }
 
 .container {
+  flex-direction: row;
   display: flex;
   justify-content: space-between;
+  height: 90%;
+
 }
+.nowrap  { 
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
 
 .column {
   flex: 1;
   padding: 10px;
-  background: rgba(204, 176, 176, 0.502);
+  background: rgba(215, 213, 234, 0.956);
   border-radius: 5px;
   margin-right: 10px;
   min-height: 500px; /* Adjust the height as needed */
@@ -213,26 +221,7 @@
   background-color: #45a049; /* Darker green on hover */
 }
 
-/* Other Element Styles */
-.card {
-  background-color: #f7f7f7; /* Light background color */
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
 
-.card-title {
-  color: #333; /* Dark text color */
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.card-content {
-  color: #666; /* Medium-dark text color */
-  font-size: 16px;
-}
 
 /* Category Colors */
 .to-do {

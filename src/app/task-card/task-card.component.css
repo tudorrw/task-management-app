@@ -1,19 +1,22 @@
 .card {
-  width: 300px; /* Set a fixed width for the card */
   border-radius: 8px;
   margin-bottom: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Larger shadow effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
   position: relative;
 }
 
 .card-body {
   padding: 20px;
+  background-color: #e3e3e3fd;
+
+
   margin-bottom: 30px; /* Adjust as needed to create space between card body and button */
 }
 
 .card-header {
-  background-color: #007bff;
+  background-color: #27162d86;
   color: #fff;
   font-weight: bold;
   padding: 15px;
