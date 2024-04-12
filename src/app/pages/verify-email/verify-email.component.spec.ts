@@ -10,8 +10,8 @@ describe('VerifyEmailComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [VerifyEmailComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(VerifyEmailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

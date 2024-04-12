@@ -24,16 +24,16 @@ import { s } from '@fullcalendar/core/internal-common';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit{
-  async onTaskDrop(event: CdkDragDrop<Task[]>, dropId:string) {
-    console.log("dropId",dropId)
+export class DashboardComponent implements OnInit {
+  async onTaskDrop(event: CdkDragDrop<Task[]>, dropId: string) {
+    console.log("dropId", dropId)
     console.log(event.item.dropContainer.id);
     //console.log(event.item.data);
     //console.log(event.previousContainer.data[event.previousIndex])
     //console.log(event.previousContainer)
     console.log(event.item.dropContainer)
     console.log(event.container.id)
-    console.log('event',event)
+    console.log('event', event)
     console.log("Drop container id:", event.container.id);
     console.log("Task id:", event.item.element.nativeElement.id);
     console.log(event.item.element.nativeElement.getAttributeNames())
@@ -48,49 +48,49 @@ export class DashboardComponent implements OnInit{
     const newData = {
       stage: this.data_stage.getStageByIdRef(event.container.id) as DocumentReference<Stage>
     };
-    console.log("stage",event.container.id)
-    console.log('dataaaaaaaaaaaaaaaa',newData)
-    console.log('ref',newData.stage)
-    console.log('ref2',event.item.dropContainer.id)
-    console.log("doc",docRef)
+    console.log("stage", event.container.id)
+    console.log('dataaaaaaaaaaaaaaaa', newData)
+    console.log('ref', newData.stage)
+    console.log('ref2', event.item.dropContainer.id)
+    console.log("doc", docRef)
 
-// Call the update method with the document reference and the new data
+    // Call the update method with the document reference and the new data
     await docRef.update(newData)
       .then(() => {
         console.log('Document updated successfully!');
-    });
+      });
 
-    console.log("result",docRef.get());
+    console.log("result", docRef.get());
 
-// Get the document snapshot
-const docSnapshot = await docRef.get();
+    // Get the document snapshot
+    const docSnapshot = await docRef.get();
 
-// Check if the document exists
+    // Check if the document exists
 
     // Extract data from the document snapshot
-  const data = docSnapshot.data() as Task;
+    const data = docSnapshot.data() as Task;
 
-  this.id =data.id
-  this.title = data.title;
-  this.description = data.description;
-  this.priority= data.priority,
-  this.category= data.category,
-  this.stage= newData.stage,
-  this.dueDate= data.dueDate,
-  this.userId= localStorage['token'] ?? ''
-  console.log(newData.stage)
+    this.id = data.id
+    this.title = data.title;
+    this.description = data.description;
+    this.priority = data.priority,
+      this.category = data.category,
+      this.stage = newData.stage,
+      this.dueDate = data.dueDate,
+      this.userId = localStorage['token'] ?? ''
+    console.log(newData.stage)
 
     // You can also call the addTask function here if needed
-  
+
 
     this.data_task.deleteTaskById(id || '');
 
     this.addTask();
 
 
-    
+
     // Now you may want to update the task in your data source (e.g., database) to reflect the new stage
-}
+  }
   hide: boolean = true;
   loginForm!: FormGroup;
 
@@ -109,15 +109,15 @@ const docSnapshot = await docRef.get();
     dueDate: new Date(""),
     userId: ''
   };
-  id : string = '';
-  title : string = '';
-  description : string = '';
-  priority : DocumentReference<Priority> = {} as DocumentReference<Priority>;
-  category : DocumentReference<Category> = {} as DocumentReference<Category>;
-  dueDate : Date = new Date("");;
-  userId : string = '';
+  id: string = '';
+  title: string = '';
+  description: string = '';
+  priority: DocumentReference<Priority> = {} as DocumentReference<Priority>;
+  category: DocumentReference<Category> = {} as DocumentReference<Category>;
+  dueDate: Date = new Date("");;
+  userId: string = '';
   stage: DocumentReference<Stage> = {} as DocumentReference<Stage>;
-  
+
 
   tasks = {
     todo: ['Task 1', 'Task 2', 'Task 3'],
@@ -150,21 +150,21 @@ const docSnapshot = await docRef.get();
 
   ngOnInit(): void {
     //console.log(this.authService.isLoggedIn());
-    if(this.authService.isLoggedIn() == false) {
-        this.router.navigate(['/login']);
-      }
-
-      this.getAllCategories();
-      this.getAllPriorities();
-      //console.log("cat"+this.categoriesList);
-      //console.log("prio"+this.priorityList);
-
-      this.getAllTasks().subscribe(taskList => {
-        this.taskList = taskList;
-        console.log(this.taskList);
-      });
-
+    if (this.authService.isLoggedIn() == false) {
+      this.router.navigate(['/login']);
     }
+
+    this.getAllCategories();
+    this.getAllPriorities();
+    //console.log("cat"+this.categoriesList);
+    //console.log("prio"+this.priorityList);
+
+    this.getAllTasks().subscribe(taskList => {
+      this.taskList = taskList;
+      console.log(this.taskList);
+    });
+
+  }
 
 
   logoutUser() {
@@ -178,21 +178,21 @@ const docSnapshot = await docRef.get();
     });
 
     dialogRef.afterClosed().subscribe(result => {
-              //console.log(result);
-              this.title = result.title;
-              this.description = result.description;
-              this.priority = this.data_priority.getPriorityByIdRef(this.getPriorityFromName(result.priority ?? '') ?? '') as DocumentReference<Priority>;
-              this.category = this.data_category.getCategoryByIdRef(this.getCategoryFromName(result.category ?? '') ?? '') as DocumentReference<Category>;
-              this.dueDate = result.dueDate;
-              this.userId = localStorage['token'] ?? '';
-              this.stage=this.data_stage.getStageByIdRef('1') as DocumentReference<Stage>;
-              this.addTask();
-              
-          // Call getAllTasks and update this.taskList after the subscription completes
-          this.getAllTasks().subscribe(taskList => {
-            this.taskList = taskList;
-            //console.log(this.taskList);
-          });
+      //console.log(result);
+      this.title = result.title;
+      this.description = result.description;
+      this.priority = this.data_priority.getPriorityByIdRef(this.getPriorityFromName(result.priority ?? '') ?? '') as DocumentReference<Priority>;
+      this.category = this.data_category.getCategoryByIdRef(this.getCategoryFromName(result.category ?? '') ?? '') as DocumentReference<Category>;
+      this.dueDate = result.dueDate;
+      this.userId = localStorage['token'] ?? '';
+      this.stage = this.data_stage.getStageByIdRef('1') as DocumentReference<Stage>;
+      this.addTask();
+
+      // Call getAllTasks and update this.taskList after the subscription completes
+      this.getAllTasks().subscribe(taskList => {
+        this.taskList = taskList;
+        //console.log(this.taskList);
+      });
     });
   }
 
@@ -202,7 +202,7 @@ const docSnapshot = await docRef.get();
         return from(Promise.all(res.map(async (e: any) => {
           const data = e.payload.doc.data();
           data.id = e.payload.doc.id;
-          console.log("pre",data);
+          console.log("pre", data);
           //console.log("categoru",data.category)
           const categorySnapshot = await data.category.get();
           const categoryData = categorySnapshot.data();
@@ -228,7 +228,7 @@ const docSnapshot = await docRef.get();
     );
   }
 
-  
+
   addTask() {
     this.taskObj = {
       id: this.id,
@@ -240,7 +240,7 @@ const docSnapshot = await docRef.get();
       userId: this.userId,
       stage: this.stage
     };
-    console.log("task"+this.taskObj);
+    console.log("task" + this.taskObj);
     this.data_task.addTask(this.taskObj).then(() => {
       console.log('Task added successfully!');
     });
@@ -259,15 +259,14 @@ const docSnapshot = await docRef.get();
   }
 
   deleteTask(task: Task) {
-    if(window.confirm('Are you sure you want to delete this task?')) {
-    this.data_task.deleteTask(task).then(() => {
-      console.log('Task deleted successfully!');
-    });
-   }
+    if (window.confirm('Are you sure you want to delete this task?')) {
+      this.data_task.deleteTask(task).then(() => {
+        console.log('Task deleted successfully!');
+      });
+    }
   }
 
   updateTask(task: Task) {
-    // Update the task TO DO Should Add button that Opens the New Task window but uses the id of the task clicked on
     this.data_task.updateTask(task).then(() => {
       console.log('Task updated successfully!');
     });
@@ -275,10 +274,10 @@ const docSnapshot = await docRef.get();
 
 
   getAllCategories() {
-    this.data_category.getAllCategories().subscribe(res=> {
+    this.data_category.getAllCategories().subscribe(res => {
       this.categoriesList = res.map((e: any) => {
-      //console.log(e.payload.doc.data());
-      //console.log(this.data_category.getCategoryByIdRef(e.payload.doc.id));
+        //console.log(e.payload.doc.data());
+        //console.log(this.data_category.getCategoryByIdRef(e.payload.doc.id));
         return {
           id: e.payload.doc.id,
           name: e.payload.doc.data()['name'],
@@ -289,7 +288,7 @@ const docSnapshot = await docRef.get();
   }
 
   getAllPriorities() {
-    this.data_priority.getAllPriorities().subscribe(res=> {
+    this.data_priority.getAllPriorities().subscribe(res => {
       this.priorityList = res.map((e: any) => {
         //console.log(e.payload.doc.data());
         return {
@@ -302,7 +301,7 @@ const docSnapshot = await docRef.get();
   }
 
   getAllStages() {
-    this.data_stage.getAllStages().subscribe(res=> {
+    this.data_stage.getAllStages().subscribe(res => {
       this.stageList = res.map((e: any) => {
         console.log(e.payload.doc.data());
         return {

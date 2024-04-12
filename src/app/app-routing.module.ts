@@ -8,13 +8,13 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { CalendarComponent } from './pages/calendar/calendar.component';
 
 const routes: Routes = [
-  {path: '',redirectTo: 'login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component:DashboardComponent},
-  {path:'register',component: RegisterComponent},
-  {path: 'forgot-password', component: ForgotPasswordComponent},
-  {path: 'verify-email', component: VerifyEmailComponent},
-  {path: 'calendar', component: CalendarComponent}
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'calendar', component: CalendarComponent }
 ]
 
 @NgModule({

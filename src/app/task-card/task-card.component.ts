@@ -34,10 +34,10 @@ export class TaskCardComponent {
 
   @Input() task: TaskInMemory | null = null;
 
-  constructor(private data_task: DataTaskService,private dialog: MatDialog) {}
+  constructor(private data_task: DataTaskService, private dialog: MatDialog) { }
 
   get isTaskInitialized(): boolean {
-    console.log("task",this.task)
+    console.log("task", this.task)
     return this.task !== null;
   }
 }
@@ -56,20 +56,20 @@ export class TaskCardComponent {
     //await this.fetchCategoryName();
   } */
 
- /*  private fetchPriorityName(): void {
-    console.log("card task"+this.task)
-    this.priorityService.getPriorityById(this.task.priority.id).subscribe((priority: any) => {
-      console.log("cardddddddddd"+priority)
-      console.log("cardddddddddd"+priority.name)
-      console.log("cardddddddddd"+this.task.priority.id)
+/*  private fetchPriorityName(): void {
+   console.log("card task"+this.task)
+   this.priorityService.getPriorityById(this.task.priority.id).subscribe((priority: any) => {
+     console.log("cardddddddddd"+priority)
+     console.log("cardddddddddd"+priority.name)
+     console.log("cardddddddddd"+this.task.priority.id)
 
-      this.priorityName = priority.name;
-    });
-  }
+     this.priorityName = priority.name;
+   });
+ }
 
-  private fetchCategoryName(): void {
-    this.categoryService.getCategoryById(this.task.category.id).subscribe((category: any) => {
-      this.categoryName = category.name;
-    });
-  } */
+ private fetchCategoryName(): void {
+   this.categoryService.getCategoryById(this.task.category.id).subscribe((category: any) => {
+     this.categoryName = category.name;
+   });
+ } */
 //}

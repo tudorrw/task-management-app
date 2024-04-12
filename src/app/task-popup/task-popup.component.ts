@@ -12,8 +12,8 @@ import { TaskInMemory } from '../services/model/task-in-memory';
 
 export class TaskPopupComponent {
   constructor(
-      public dialogRef: MatDialogRef<TaskPopupComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: { event: EventApi, task: TaskInMemory }
+    public dialogRef: MatDialogRef<TaskPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { event: EventApi, task: TaskInMemory }
   ) { }
   onClose(): void {
     this.dialogRef.close();

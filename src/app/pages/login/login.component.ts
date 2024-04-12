@@ -17,14 +17,14 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     public dialog: MatDialog,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
-    if(this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn()) {
       if (typeof window !== 'undefined') {
         const token = localStorage.getItem('token');
         if (token) {
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithGoogle() {
-  
+
     this.authService.signInWithGoogle().then((res: any) => {
     }).catch((error: any) => {
     });

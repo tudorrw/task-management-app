@@ -10,8 +10,8 @@ describe('ConfirmationDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ConfirmationDialogComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ConfirmationDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

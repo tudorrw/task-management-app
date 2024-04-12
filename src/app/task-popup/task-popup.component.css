@@ -14,31 +14,28 @@
   color: white;
   font-weight: bold;
   border-radius: 8px;
-  word-wrap: break-word; /* Allow text to wrap onto multiple lines */
+  word-wrap: break-word;
 }
 
 .task-popup-body {
-  padding: 20px; /* Add some padding */
-  border: 2px solid #53cae2; /* Add a border */
+  padding: 20px;
+  border: 2px solid #53cae2;
   border-radius: 8px;
 }
 
-/* Style individual paragraph elements */
 .task-popup-body p {
-  margin: 8px 0; /* Add some vertical margin */
+  margin: 8px 0;
 }
 
-/* Button style */
 .exit-button {
   display: grid;
 }
 
 .mat-dialog-actions button {
-  color: #aa8dbf; /* Text color */
+  color: #aa8dbf;
   font-weight: bold;
 }
 
-/* Button hover effect */
 .mat-dialog-actions button:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Light background color on hover */
+  background-color: rgba(0, 0, 0, 0.1);
 }

@@ -25,7 +25,7 @@ export class TaskCreatorPopupComponent implements OnInit {
       dueDate: ['']
     });
   }
-  
+
 
   ngOnInit(): void {
     this.taskForm = this.formBuilder.group({
@@ -36,13 +36,13 @@ export class TaskCreatorPopupComponent implements OnInit {
       dueDate: ['']
     });
 
-      // Listen to changes in the category form control
+    // Listen to changes in the category form control
     this.taskForm.get('category')?.valueChanges.subscribe((category: string) => {
       console.log(category);
       this.selectedCategory = category; // Update the selected category
     });
 
-          // Listen to changes in the priority form control
+    // Listen to changes in the priority form control
     this.taskForm.get('priority')?.valueChanges.subscribe((priority: string) => {
       console.log(priority);
       this.selectedPriority = priority; // Update the selected priority

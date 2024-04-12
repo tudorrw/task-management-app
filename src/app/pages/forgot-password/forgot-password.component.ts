@@ -7,16 +7,16 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })
-export class ForgotPasswordComponent implements OnInit{
+export class ForgotPasswordComponent implements OnInit {
   hide: boolean = true;
   hideConfirmedPassword: boolean = true;
   forgotPasswordForm!: FormGroup;
-  
-  constructor(private authService: AuthService) {}
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.forgotPasswordForm = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.email])
+      username: new FormControl('', [Validators.required, Validators.email])
     });
   }
 

@@ -27,7 +27,8 @@
       <mat-select formControlName="priority" placeholder="Select Priority">
         <mat-option *ngFor="let pr of priorities" [value]="pr.toLowerCase()">{{pr}}</mat-option>
       </mat-select>
-      <mat-error *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched">Priority is required</mat-error>
+      <mat-error *ngIf="taskForm.get('priority')?.invalid && taskForm.get('priority')?.touched">Priority is
+        required</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="form-field">
@@ -35,7 +36,8 @@
       <mat-select formControlName="category" placeholder="Select Category">
         <mat-option *ngFor="let ca of categories" [value]="ca.toLowerCase()">{{ca}}</mat-option>
       </mat-select>
-      <mat-error *ngIf="taskForm.get('category')?.invalid && taskForm.get('category')?.touched">Category is required</mat-error>
+      <mat-error *ngIf="taskForm.get('category')?.invalid && taskForm.get('category')?.touched">Category is
+        required</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="form-field">
@@ -43,7 +45,8 @@
       <input matInput [matDatepicker]="dueDatePicker" formControlName="dueDate" placeholder="Due Date">
       <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #dueDatePicker></mat-datepicker>
-      <mat-error *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched">Invalid Due Date</mat-error>
+      <mat-error *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched">Invalid Due
+        Date</mat-error>
     </mat-form-field>
 
     <div class="button-container">

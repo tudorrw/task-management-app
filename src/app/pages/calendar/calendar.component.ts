@@ -41,7 +41,7 @@ export class CalendarComponent implements OnInit {
   taskList: TaskInMemory[] = [];
   calendarVisible = signal(true);
   calendarOptions: CalendarOptions = {}; // Initialize calendarOptions property
-      
+
   currentTasks = signal<EventApi[]>([]);
 
 
@@ -53,7 +53,7 @@ export class CalendarComponent implements OnInit {
         return;
       }
     }
-  
+
     this.getAllTasks().subscribe(async taskList => {
 
       const events = this.transformTasksToEvents(taskList);
@@ -84,18 +84,18 @@ export class CalendarComponent implements OnInit {
       eventClick: this.handleEventClick.bind(this),
       eventsSet: this.handleEvents.bind(this)
     };
-  
+
     // Fetch and transform tasks
 
   }
-  
+
 
   handleCalendarToggle() {
     this.calendarVisible.update((bool) => !bool);
   }
-  
+
   handleWeekendsToggle() {
-      this.calendarOptions.weekends = !this.calendarOptions.weekends;
+    this.calendarOptions.weekends = !this.calendarOptions.weekends;
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
@@ -120,8 +120,10 @@ export class CalendarComponent implements OnInit {
       const taskDetails = taskList.find(task => task.id === clickInfo.event.id); // Assuming taskList contains your TaskInMemory objects
       if (taskDetails) {
         this.dialog.open(TaskPopupComponent, {
-          data: { event: clickInfo.event, 
-            task: taskDetails }
+          data: {
+            event: clickInfo.event,
+            task: taskDetails
+          }
         });
       }
 
@@ -139,7 +141,7 @@ export class CalendarComponent implements OnInit {
         return from(Promise.all(res.map(async (e: any) => {
           const data = e.payload.doc.data();
           data.id = e.payload.doc.id;
-                    //console.log("categoru",data.category)
+          //console.log("categoru",data.category)
           const categorySnapshot = await data.category.get();
           const categoryData = categorySnapshot.data();
           //console.log("categoryData",categoryData)
@@ -177,7 +179,7 @@ export class CalendarComponent implements OnInit {
       const endMonth = String(endDate.getMonth() + 1).padStart(2, '0'); // Month is zero-indexed, so add 1
       const endDay = String(endDate.getDate()).padStart(2, '0');
       const endTimeStr = `${endYear}-${endMonth}-${endDay}`;
-      console.log("end",endTimeStr);
+      console.log("end", endTimeStr);
       return {
         id: task.id,
         title: task.title,
@@ -186,7 +188,7 @@ export class CalendarComponent implements OnInit {
       };
     });
   }
-  
+
 
 
 }

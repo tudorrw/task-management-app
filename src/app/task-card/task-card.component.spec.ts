@@ -10,8 +10,8 @@ describe('TaskCardComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TaskCardComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TaskCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

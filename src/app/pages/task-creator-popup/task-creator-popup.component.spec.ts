@@ -10,8 +10,8 @@ describe('TaskCreatorPopupComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TaskCreatorPopupComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TaskCreatorPopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

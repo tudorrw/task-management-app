@@ -10,8 +10,8 @@ describe('GoogleLoginCardComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [GoogleLoginCardComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(GoogleLoginCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
